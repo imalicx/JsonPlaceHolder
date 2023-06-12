@@ -1,39 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Workbook 7</title>
-  </head>
-  <body>
-    <header>
-      <nav class="nav">
-        <div class="hamburger">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-        <div class="nav__link hide">
-          <a href="#">Users</a>
-          <a href="todo.html">To Do</a>
-          <a href="index.html">Home</a>
-        </div>
-      </nav>
-    <main>
-        <table>
-            <thead>
-                <tr>
-                    <th> User</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Company</th>
-                </tr>
+<html>
+<head>
+  <title>Fetch Data and Display Address</title>
+</head>
+<body>
+  <h1>User Information</h1>
+  <div id="addresses"></div>
 
-            </thead>
-            <tbody id="tablebody">
-                
-            </tbody>
-        </table>
-    </main>
-    <script src="/JsonPlaceHolder/scripts/users.js"></script>
-      
+  <script>
+    // Make a fetch request to the API
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(data => {
+        // Display the address information for each user in the HTML
+        const addressesElement = document.getElementById('addresses');
+        let addressesHTML = '';
+
+        data.forEach(user => {
+          addressesHTML += `
+            <p><strong>Name:</strong> ${user.name}</p>
+            <p><strong>Username:</strong> ${user.username}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
+            <p><strong>Website:</strong> ${user.website}</p>
+            <p><strong>Company:</strong> ${user.company.name}</p>
+            <p><strong>Address:</strong></p>
+            <p>${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}</p>
+            <hr>
+          `;
+        });
+
+        addressesElement.innerHTML = addressesHTML;
+      })
+      .catch(error => {
+        console.log('Error:', error);
+      });
+  </script>
+</body>
+</html>

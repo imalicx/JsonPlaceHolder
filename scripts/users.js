@@ -18,6 +18,8 @@ function addRowForUser(user){
     let newrow = tablebody.insertRow(-1);
     let cell1 = newrow.insertCell(0);
     cell1.innerHTML = user.name;
+    cell1.innerHTML = user.company;
+    cell1.innerHTML = user.email;
 }
 
 
